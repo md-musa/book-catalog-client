@@ -60,7 +60,7 @@ export default function BookCard() {
       </CardBody>
       <CardFooter className="pt-3">
         <Button size="sm" fullWidth={true}>
-          Reserve
+          Details
         </Button>
       </CardFooter>
     </Card>
