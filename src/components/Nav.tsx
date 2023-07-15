@@ -29,7 +29,7 @@ export default function Nav() {
   );
 
   return (
-    <Navbar className="mx-auto mt-4 border-2 border-[#f0f0f0] max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4">
+    <Navbar className="mx-auto my-4 border-2 border-[#f0f0f0] max-w-screen-xl px-4 lg:px-6 lg:py-3">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <Typography as="a" href="#" className="mr-4 cursor-pointer py-1.5 font-medium">
           Bookie
