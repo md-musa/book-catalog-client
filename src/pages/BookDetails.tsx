@@ -1,7 +1,9 @@
 import { Button, Rating, Textarea, Typography } from '@material-tailwind/react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function BookDetails() {
+  const navigate = useNavigate();
   const [rated, setRated] = React.useState(4);
 
   return (
@@ -40,7 +42,7 @@ function BookDetails() {
       </div>
 
       <div className="absolute right-10 space-x-2">
-        <Button color="blue" size="sm" className="shadow-md">
+        <Button onClick={() => navigate('/edit-book-details')} color="blue" size="sm" className="shadow-md">
           Edit
         </Button>
         <Button color="red" size="sm" className="shadow-md">

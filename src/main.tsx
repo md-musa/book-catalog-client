@@ -10,9 +10,9 @@ import { store } from './store/configureStore.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
+    <ToastContainer />
     <Provider store={store}>
       <ThemeProvider>
-        <ToastContainer />
         <App />
       </ThemeProvider>
     </Provider>

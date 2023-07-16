@@ -1,7 +1,9 @@
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button, Tooltip, IconButton } from '@material-tailwind/react';
 import { BanknotesIcon, StarIcon, HeartIcon, WifiIcon, HomeIcon, TvIcon, FireIcon } from '@heroicons/react/24/solid';
+import { useNavigate } from 'react-router-dom';
 
 export default function BookCard() {
+  const navigate = useNavigate();
   return (
     <Card className="w-full max-w-[26rem] shadow-md border-2 border-[#f0f0f0]">
       <CardHeader floated={false} color="blue-gray">
@@ -25,41 +27,9 @@ export default function BookCard() {
           </Typography>
         </div>
         <Typography color="gray">Enter a freshly updated and thoughtfully furnished...</Typography>
-        {/* <div className="group mt-8 inline-flex flex-wrap items-center gap-3">
-          <Tooltip content="$129 per night">
-            <span className="cursor-pointer rounded-full border border-blue-500/5 bg-blue-500/5 p-3 text-blue-500 transition-colors hover:border-blue-500/10 hover:bg-blue-500/10 hover:!opacity-100 group-hover:opacity-70">
-              <BanknotesIcon className="h-5 w-5" />
-            </span>
-          </Tooltip>
-          <Tooltip content="Free wifi">
-            <span className="cursor-pointer rounded-full border border-blue-500/5 bg-blue-500/5 p-3 text-blue-500 transition-colors hover:border-blue-500/10 hover:bg-blue-500/10 hover:!opacity-100 group-hover:opacity-70">
-              <WifiIcon className="h-5 w-5" />
-            </span>
-          </Tooltip>
-          <Tooltip content="2 bedrooms">
-            <span className="cursor-pointer rounded-full border border-blue-500/5 bg-blue-500/5 p-3 text-blue-500 transition-colors hover:border-blue-500/10 hover:bg-blue-500/10 hover:!opacity-100 group-hover:opacity-70">
-              <HomeIcon className="h-5 w-5" />
-            </span>
-          </Tooltip>
-          <Tooltip content={`65" HDTV`}>
-            <span className="cursor-pointer rounded-full border border-blue-500/5 bg-blue-500/5 p-3 text-blue-500 transition-colors hover:border-blue-500/10 hover:bg-blue-500/10 hover:!opacity-100 group-hover:opacity-70">
-              <TvIcon className="h-5 w-5" />
-            </span>
-          </Tooltip>
-          <Tooltip content="Fire alert">
-            <span className="cursor-pointer rounded-full border border-blue-500/5 bg-blue-500/5 p-3 text-blue-500 transition-colors hover:border-blue-500/10 hover:bg-blue-500/10 hover:!opacity-100 group-hover:opacity-70">
-              <FireIcon className="h-5 w-5" />
-            </span>
-          </Tooltip>
-          <Tooltip content="And +20 more">
-            <span className="cursor-pointer rounded-full border border-blue-500/5 bg-blue-500/5 p-3 text-blue-500 transition-colors hover:border-blue-500/10 hover:bg-blue-500/10 hover:!opacity-100 group-hover:opacity-70">
-              +20
-            </span>
-          </Tooltip>
-        </div> */}
       </CardBody>
       <CardFooter className="pt-3">
-        <Button size="sm" fullWidth={true}>
+        <Button onClick={() => navigate('/book-details')} size="sm" fullWidth={true}>
           Details
         </Button>
       </CardFooter>

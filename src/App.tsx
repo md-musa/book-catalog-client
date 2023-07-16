@@ -9,8 +9,22 @@ import Registration from './pages/Registration';
 import { Routes, Route } from 'react-router-dom';
 import Wishlist from './pages/Wishlist';
 import ReadingList from './pages/ReadingList';
+import EditBook from './pages/EditBook';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from './store/features/auth/authSlice';
+import { useEffect } from 'react';
 
 function App() {
+  const dispatch = useDispatch();
+  const userCredentials = localStorage.getItem('userCredentials') || null;
+
+  useEffect(() => {
+    if (userCredentials) {
+      const credentials = JSON.parse(userCredentials);
+      dispatch(setCredentials(credentials));
+    }
+  }, []);
+
   return (
     <div className="max-w-6xl mx-auto">
       <Nav />
@@ -22,6 +36,7 @@ function App() {
         <Route path="/all-books" element={<AllBooks />} />
         <Route path="/book-details" element={<BookDetails />} />
         <Route path="/add-new-book" element={<AddNewBook />} />
+        <Route path="/edit-book-details" element={<EditBook />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/reading-list" element={<ReadingList />} />
 
