@@ -34,9 +34,9 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/login" element={<Login />} />
         <Route path="/all-books" element={<AllBooks />} />
-        <Route path="/book-details" element={<BookDetails />} />
+        <Route path="/all-books/:id" element={<BookDetails />} />
         <Route path="/add-new-book" element={<AddNewBook />} />
-        <Route path="/edit-book-details" element={<EditBook />} />
+        <Route path="/edit-book-details/:id" element={<EditBook />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/reading-list" element={<ReadingList />} />
 

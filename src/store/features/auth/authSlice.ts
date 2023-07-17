@@ -9,12 +9,12 @@ export interface IAuthState {
     };
     email: string;
   } | null;
-  token: string | null;
+  accessToken: string | null;
 }
 
 const initialState: IAuthState = {
   user: null,
-  token: null,
+  accessToken: null,
 };
 
 export const authSlice = createSlice({
@@ -23,17 +23,17 @@ export const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       console.log(action, state);
-      const { user, accessToken: token } = action.payload;
+      const { user, accessToken } = action.payload;
       state.user = user;
-      state.token = token;
+      state.accessToken = accessToken;
 
-      const data = JSON.stringify({ user, token });
+      const data = JSON.stringify({ user, accessToken });
       localStorage.setItem('userCredentials', data);
     },
 
     logout: (state, action) => {
       state.user = null;
-      state.token = null;
+      state.accessToken = null;
       localStorage.removeItem('userCredentials');
     },
   },

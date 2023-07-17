@@ -1,8 +1,15 @@
 import React from 'react';
 import BookCard from '../components/BookCard';
 import { Button, Input, Option, Select } from '@material-tailwind/react';
+import { useGetBooksQuery } from '../store/features/books/bookApiSlice';
 
 function AllBooks() {
+  const { data, isError, isSuccess, isLoading } = useGetBooksQuery(undefined);
+  if (isLoading) return <p>Loading...</p>;
+
+  const books = data?.data;
+  console.log(data);
+
   return (
     <div className="grid grid-cols-[1fr_4fr] space-x-3">
       <div className="border-r-2 py-20 px-4 space-y-4">
@@ -34,14 +41,9 @@ function AllBooks() {
           </div>
         </div>
         <div className="my-10 grid grid-cols-3 gap-4">
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
+          {books?.map(book => (
+            <BookCard book={book} key={book._id} />
+          ))}
         </div>
       </div>
     </div>

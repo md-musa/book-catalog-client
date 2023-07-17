@@ -1,6 +1,6 @@
 import { Card, Input, Button, Typography } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
-import { useRegisterUserMutation, useregisterUserMutation } from '../store/api/authApi';
+import { useRegisterUserMutation, useregisterUserMutation } from '../store/features/auth/authApiSlice';
 import { toast } from 'react-toast';
 import { store } from '../store/configureStore';
 import { Link, useNavigate } from 'react-router-dom';

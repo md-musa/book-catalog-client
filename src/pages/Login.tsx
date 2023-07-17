@@ -1,7 +1,7 @@
 import { Card, Input, Button, Typography } from '@material-tailwind/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toast';
-import { useLoginUserMutation } from '../store/api/authApi';
+import { useLoginUserMutation } from '../store/features/auth/authApiSlice';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { store } from '../store/configureStore';
@@ -14,12 +14,12 @@ export default function Login() {
   const [email, setEmail] = useState('musa@gmail.com');
   const [password, setPassword] = useState('123456');
 
-  const [loginUser, { data, error, isSuccess, isError }] = useLoginUserMutation();
+  const [loginUser, { data, error, isSuccess, isError, isLoading }] = useLoginUserMutation();
 
   useEffect(() => {
     if (isError) {
-      const { message } = error?.data;
-      toast.error(message);
+      const message = error?.data?.message;
+      if (message) toast.error(message);
     }
     if (isSuccess) {
       const { user, accessToken } = data.data;
