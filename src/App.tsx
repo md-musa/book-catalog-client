@@ -13,6 +13,7 @@ import EditBook from './pages/EditBook';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from './store/features/auth/authSlice';
 import { useEffect } from 'react';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,10 +36,13 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/all-books" element={<AllBooks />} />
         <Route path="/all-books/:id" element={<BookDetails />} />
-        <Route path="/add-new-book" element={<AddNewBook />} />
-        <Route path="/edit-book-details/:id" element={<EditBook />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/reading-list" element={<ReadingList />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/add-new-book" element={<AddNewBook />} />
+          <Route path="/edit-book-details/:id" element={<EditBook />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/reading-list" element={<ReadingList />} />
+        </Route>
 
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>

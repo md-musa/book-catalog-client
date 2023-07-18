@@ -28,6 +28,16 @@ export default function Nav() {
         </Link>
       </Typography>
       <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
+        <Link to="/wishlist" className="flex items-center">
+          Wishlist
+        </Link>
+      </Typography>
+      <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
+        <Link to="/reading-list" className="flex items-center">
+          Reading List
+        </Link>
+      </Typography>
+      <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
         <Link to="/" className="flex items-center">
           Contact Us
         </Link>
@@ -37,7 +47,12 @@ export default function Nav() {
           Privacy & Policy
         </a>
       </Typography>
-      <Button onClick={() => navigate('/add-new-book')} className="rounded-full" size="sm" variant="outlined">
+      <Button
+        onClick={() => navigate('/add-new-book')}
+        className="rounded-full"
+        size="sm"
+        variant="outlined"
+      >
         Add Book
       </Button>
     </ul>
@@ -52,11 +67,21 @@ export default function Nav() {
         <div className="hidden lg:block">{navList}</div>
 
         {!auth.user ? (
-          <Button onClick={() => navigate('/login')} variant="gradient" size="sm" className="hidden lg:inline-block">
+          <Button
+            onClick={() => navigate('/login')}
+            variant="gradient"
+            size="sm"
+            className="hidden lg:inline-block"
+          >
             <span>Login</span>
           </Button>
         ) : (
-          <Button onClick={handleLogout} variant="gradient" size="sm" className="hidden lg:inline-block">
+          <Button
+            onClick={handleLogout}
+            variant="gradient"
+            size="sm"
+            className="hidden lg:inline-block"
+          >
             <span>Logout</span>
           </Button>
         )}
@@ -68,11 +93,24 @@ export default function Nav() {
           onClick={() => setOpenNav(!openNav)}
         >
           {openNav ? (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              className="h-6 w-6"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
@@ -82,7 +120,13 @@ export default function Nav() {
       <MobileNav open={openNav}>
         <div className="container mx-auto">
           {navList}
-          <Button onClick={() => navigate('/login')} variant="gradient" size="sm" fullWidth className="mb-2">
+          <Button
+            onClick={() => navigate('/login')}
+            variant="gradient"
+            size="sm"
+            fullWidth
+            className="mb-2"
+          >
             <span>Login</span>
           </Button>
         </div>

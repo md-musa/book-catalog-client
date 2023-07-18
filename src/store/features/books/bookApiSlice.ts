@@ -4,7 +4,17 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 export const bookApiSlice = createApi({
   reducerPath: 'bookApi',
   baseQuery,
-  tagTypes: ['books'],
+  tagTypes: ['books', 'singleBook'],
+
+  transformResponse: (response, options) => {
+    if (options?.queryKey === 'getBooks') {
+      return {
+        ...response,
+        data: response.data.reverse(),
+      };
+    }
+    return response;
+  },
 
   endpoints: builder => ({
     postBook: builder.mutation({
@@ -17,10 +27,10 @@ export const bookApiSlice = createApi({
     }),
 
     getBooks: builder.query({
-      query: book => ({
+      query: params => ({
         url: `/books`,
         method: 'GET',
-        body: book,
+        params: params,
       }),
       providesTags: ['books'],
     }),
@@ -30,15 +40,16 @@ export const bookApiSlice = createApi({
         url: `/books/${bookId}`,
         method: 'GET',
       }),
+      providesTags: ['singleBook'],
     }),
 
-    updateBook: builder.query({
+    updateBook: builder.mutation({
       query: ({ bookId, updatedData }) => ({
         url: `/books/${bookId}`,
-        method: 'GET',
+        method: 'PATCH',
         body: updatedData,
       }),
-      // invalidatesTags: ['books'],
+      invalidatesTags: ['books', 'singleBook'],
     }),
 
     deleteBook: builder.mutation({
@@ -48,6 +59,18 @@ export const bookApiSlice = createApi({
       }),
       invalidatesTags: ['books'],
     }),
+
+    postBookReview: builder.mutation({
+      query: ({ bookId, ...data }) => {
+        console.log(bookId, data);
+        return {
+          url: `/books/add-review/${bookId}`,
+          method: 'POST',
+          body: data,
+        };
+      },
+      invalidatesTags: ['books', 'singleBook'],
+    }),
   }),
 });
 
@@ -56,5 +79,6 @@ export const {
   useGetBooksQuery,
   useGetSingleBookQuery,
   useDeleteBookMutation,
-  useUpdateBookQuery,
+  useUpdateBookMutation,
+  usePostBookReviewMutation,
 } = bookApiSlice;
