@@ -6,32 +6,71 @@ import {
   Typography,
   Button,
   IconButton,
+  Rating,
 } from '@material-tailwind/react';
 import { StarIcon, HeartIcon } from '@heroicons/react/24/solid';
 import { useNavigate } from 'react-router-dom';
 import { useAddToWishlistMutation } from '../store/features/wishlist/wishlistApiSlice';
 import { useAddToReadingListMutation } from '../store/features/readingList/readingListApiSlice';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 export default function BookCard(props: any) {
   const navigate = useNavigate();
-  const { _id, title, image, details } = props.book;
+  const auth = useSelector(state => state.auth);
+  const { _id, title, image } = props.book;
 
-  const [addToWishList] = useAddToWishlistMutation();
+  const [addToWishList, { isSuccess, isError, error, data: wishlistBook }] =
+    useAddToWishlistMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = wishlistBook?.message;
+      if (message) toast.success(message);
+    }
+    if (isError) {
+      const { message } = error?.data;
+      toast.error(message);
+    }
+  }, [isError, isSuccess]);
 
   function handleAddToWishList(id: string) {
-    addToWishList(id);
+    if (auth.accessToken) addToWishList(id);
+    else navigate('/login');
   }
 
-  const [readSoon] = useAddToReadingListMutation();
+  const [
+    readSoon,
+    {
+      isSuccess: isReadingListBookSuccess,
+      error: readingListBookError,
+      isError: isReadingListBookError,
+      data: readingListBook,
+    },
+  ] = useAddToReadingListMutation();
+
   function handleReadSoon(id: string) {
-    readSoon(id);
+    if (auth.accessToken) readSoon(id);
+    else navigate('/login');
   }
+
+  useEffect(() => {
+    if (isReadingListBookSuccess) {
+      const message = readingListBook?.message;
+      if (message) toast.success(message);
+    }
+    if (isReadingListBookError) {
+      const { message } = readingListBookError?.data;
+      toast.error(message);
+    }
+  }, [isReadingListBookError, isReadingListBookSuccess]);
 
   return (
     <>
       <Card className="w-full max-w-[26rem] shadow-md border-2 border-[#f0f0f0]">
         <CardHeader floated={false} color="blue-gray">
-          <img className="h-36" src={image} alt="" />
+          <img className="h-44 text-center mx-auto" src={image} alt="" />
           <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
 
           <IconButton
@@ -44,26 +83,32 @@ export default function BookCard(props: any) {
             <HeartIcon className="h-6 w-6" />
           </IconButton>
         </CardHeader>
-        <CardBody>
-          <div className="mb-3 flex items-center justify-between">
-            <Typography variant="h5" color="blue-gray" className="font-medium">
-              {title}
-            </Typography>
-            <Typography color="blue-gray" className="flex items-center gap-1.5 font-normal">
-              <StarIcon className="-mt-0.5 h-5 w-5 text-yellow-700" />
-              5.0
-            </Typography>
-          </div>
-          <Typography color="gray">{details}</Typography>
+        <CardBody
+          onClick={() => navigate(`/all-books/${_id}`)}
+          className="hover:underline cursor-pointer"
+        >
+          <Typography variant="h6" color="blue-gray" className="font-medium text-center">
+            {title.length < 40 ? title : `${title.slice(0, 40)}...`}
+          </Typography>
+
+          <Typography
+            color="blue-gray"
+            className="flex justify-center items-center gap-1.5 font-normal"
+          >
+            <Rating value={5} readonly />
+            5.0
+          </Typography>
         </CardBody>
-        <CardFooter className="pt-3 space-y-3">
-          <Button onClick={() => navigate(`/all-books/${_id}`)} size="sm" fullWidth={true}>
-            Details
-          </Button>
-          <Button variant="outlined" onClick={() => handleReadSoon(_id)} size="sm" fullWidth={true}>
-            Read Soon
-          </Button>
-        </CardFooter>
+
+        <Button
+          className="mx-4 my-2 border"
+          variant="text"
+          onClick={() => handleReadSoon(_id)}
+          size="sm"
+          fullWidth={false}
+        >
+          Read Soon
+        </Button>
       </Card>
     </>
   );

@@ -37,6 +37,7 @@ function App() {
         <Route path="/all-books" element={<AllBooks />} />
         <Route path="/all-books/:id" element={<BookDetails />} />
 
+        {/* Protected routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/add-new-book" element={<AddNewBook />} />
           <Route path="/edit-book-details/:id" element={<EditBook />} />

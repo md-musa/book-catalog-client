@@ -12,9 +12,11 @@ import { useNavigate } from 'react-router-dom';
 import { useRemoveFromWishlistMutation } from '../store/features/wishlist/wishlistApiSlice';
 
 export default function WishlistCard(props: any) {
-  console.log(props);
+  console.log('🚀 ~ file: WishlistCard.tsx:15 ~ WishlistCard ~ props:', props);
+
   const navigate = useNavigate();
-  const { _id, title, image, details } = props.book;
+  if (!props.book.book) return;
+  const { _id, title, image, details } = props.book.book;
 
   const [removeFromWishlist] = useRemoveFromWishlistMutation();
 

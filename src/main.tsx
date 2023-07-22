@@ -4,13 +4,13 @@ import App from './App.tsx';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@material-tailwind/react';
-import { ToastContainer } from 'react-toast';
 import { Provider } from 'react-redux';
 import { store } from './store/configureStore.ts';
+import { Toaster } from 'react-hot-toast';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
-    <ToastContainer />
+    <Toaster />
     <Provider store={store}>
       <ThemeProvider>
         <App />

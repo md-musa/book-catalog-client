@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BookCard from '../components/BookCard';
 import { Button, Input, Option, Select } from '@material-tailwind/react';
 import { useGetBooksQuery } from '../store/features/books/bookApiSlice';
+
 interface IParams {
   searchTerm: string;
   genre: string;
@@ -13,6 +14,9 @@ function AllBooks() {
   const [genre, setGenre] = useState<string>('');
   const [publicationYear, setPublicationYear] = useState<string>();
 
+  const [genreValue, setGenreValue] = useState<string>('');
+  const [date, setDate] = useState<number>();
+
   const params: Partial<IParams> = {};
   if (searchTerm) params.searchTerm = searchTerm;
   if (genre) params.genre = genre;
@@ -22,24 +26,31 @@ function AllBooks() {
   if (isLoading) return <p>Loading...</p>;
 
   const books = data?.data;
+
+  function setFilteringValues() {
+    setGenre(genreValue);
+    setPublicationYear(date);
+  }
+
   console.log(data);
 
   return (
     <div className="grid grid-cols-[1fr_4fr] space-x-3">
       <div className="border-r-2 py-20 px-4 space-y-4">
-        <p className="text-gray-800">Filter the books</p>
+        <p className="text-gray-800">Filter books</p>
         <div>
-          <Input value={genre} onChange={e => setGenre(e.target.value)} label="Genre" />
+          <Input value={genreValue} onChange={e => setGenreValue(e.target.value)} label="Genre" />
         </div>
 
         <div>
           <Input
             type="number"
-            onChange={e => setPublicationYear(e.target.value)}
+            value={date}
+            onChange={e => setDate(e.target.value)}
             label="Publication Year"
           />
         </div>
-        <Button className="w-full" variant="gradient">
+        <Button onClick={setFilteringValues} className="w-full" variant="gradient">
           Search
         </Button>
       </div>
@@ -60,7 +71,7 @@ function AllBooks() {
             />
           </div>
         </div>
-        <div className="my-10 grid grid-cols-3 gap-4">
+        <div className="my-10 grid grid-cols-4 gap-4">
           {books?.map(book => (
             <BookCard book={book} key={book._id} />
           ))}

@@ -1,7 +1,10 @@
 import { Card, Input, Button, Typography } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
-import { useRegisterUserMutation, useregisterUserMutation } from '../store/features/auth/authApiSlice';
-import { toast } from 'react-toast';
+import {
+  useRegisterUserMutation,
+  useregisterUserMutation,
+} from '../store/features/auth/authApiSlice';
+import { toast } from 'react-hot-toast';
 import { store } from '../store/configureStore';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -57,10 +60,35 @@ export default function Registration() {
         </Typography>
         <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-4 flex flex-col gap-6">
-            <Input size="md" label="First Name" required value={firstName} onChange={e => setFirstName(e.target.value)} />
-            <Input size="md" label="Last Name" required value={lastName} onChange={e => setLastName(e.target.value)} />
-            <Input size="lg" label="Email" required value={email} onChange={e => setEmail(e.target.value)} />
-            <Input type="password" size="lg" label="Password" required value={password} onChange={e => setPassword(e.target.value)} />
+            <Input
+              size="md"
+              label="First Name"
+              required
+              value={firstName}
+              onChange={e => setFirstName(e.target.value)}
+            />
+            <Input
+              size="md"
+              label="Last Name"
+              required
+              value={lastName}
+              onChange={e => setLastName(e.target.value)}
+            />
+            <Input
+              size="lg"
+              label="Email"
+              required
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              size="lg"
+              label="Password"
+              required
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
           </div>
 
           <Button onClick={handleRegistration} className="mt-6" fullWidth>
@@ -68,7 +96,10 @@ export default function Registration() {
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{' '}
-            <Link to="/login" className="font-medium text-blue-500 transition-colors hover:text-blue-700">
+            <Link
+              to="/login"
+              className="font-medium text-blue-500 transition-colors hover:text-blue-700"
+            >
               Sign In
             </Link>
           </Typography>

@@ -2,7 +2,7 @@ import { Card, Input, Button, Typography, Textarea } from '@material-tailwind/re
 import { useParams } from 'react-router-dom';
 import { useGetSingleBookQuery, useUpdateBookMutation } from '../store/features/books/bookApiSlice';
 import { useState, useEffect } from 'react';
-import { toast } from 'react-toast';
+import { toast } from 'react-hot-toast';
 
 export default function EditBook() {
   const { id } = useParams();

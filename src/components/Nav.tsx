@@ -3,6 +3,7 @@ import { Navbar, MobileNav, Typography, Button, IconButton } from '@material-tai
 import { Link, useAsyncError, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/features/auth/authSlice';
+import toast from 'react-hot-toast';
 
 export default function Nav() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ export default function Nav() {
 
   const handleLogout = () => {
     dispatch(logout({}));
+    toast.success('Successfully log out');
   };
 
   const navList = (
@@ -37,16 +39,7 @@ export default function Nav() {
           Reading List
         </Link>
       </Typography>
-      <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-        <Link to="/" className="flex items-center">
-          Contact Us
-        </Link>
-      </Typography>
-      <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-        <a href="#" className="flex items-center">
-          Privacy & Policy
-        </a>
-      </Typography>
+
       <Button
         onClick={() => navigate('/add-new-book')}
         className="rounded-full"
@@ -61,8 +54,12 @@ export default function Nav() {
   return (
     <Navbar className="mx-auto my-4 border-2 border-[#f0f0f0] max-w-screen-xl px-4 lg:px-6 lg:py-3">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-        <Typography as="a" href="#" className="mr-4 cursor-pointer py-1.5 font-medium">
-          <Link to="/">Bookie</Link>
+        <Typography
+          as="a"
+          href="#"
+          className="mr-4 cursor-pointer py-1.5 font-bold text-xl text-blue-700 uppercase"
+        >
+          <Link to="/">Bookie.com</Link>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
 
