@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 export default function BookCard(props: any) {
   const navigate = useNavigate();
   const auth = useSelector(state => state.auth);
-  const { _id, title, image } = props.book;
+  const { _id, title, image, author, genre, publicationDate } = props.book;
 
   const [
     readSoon,
@@ -60,17 +60,24 @@ export default function BookCard(props: any) {
         onClick={() => navigate(`/all-books/${_id}`)}
         className="hover:underline cursor-pointer"
       >
-        <Typography variant="h6" color="blue-gray" className="font-medium text-center">
+        <Typography variant="h6" color="blue-gray" className="font-medium">
           {title.length < 40 ? title : `${title.slice(0, 40)}...`}
         </Typography>
 
-        <Typography
-          color="blue-gray"
-          className="flex justify-center items-center gap-1.5 font-normal"
-        >
-          <Rating value={5} readonly />
-          5.0
-        </Typography>
+        <div className="my-2">
+          <p className="text-sm">
+            <span className="text-black">Author:</span>
+            {' ' + author}
+          </p>
+          <p className="text-sm">
+            <span className="text-black">Genre:</span>
+            <span className="bg-green-100 text-green-600 px-1 rounded-md">{' ' + genre}</span>
+          </p>
+          <p className="text-sm">
+            <span className="text-black">Publication:</span>
+            <span className="text-[12px]"> {new Date(publicationDate).toDateString()}</span>
+          </p>
+        </div>
       </CardBody>
 
       <Button

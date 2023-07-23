@@ -58,20 +58,27 @@ function AllBooks() {
       <div className="w-full">
         <div className="mt-4 flex justify-center">
           <div className="">
-            <Input
+            {/* <Input
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
               type="text"
-              placeholder="Search your book"
+              className="h-[50px] w-[30rem] rounded-full text-lg focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border-2 !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
               className="h-[50px] w-[30rem] rounded-full text-lg focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border-2 !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
               labelProps={{
                 className: 'hidden',
               }}
               containerProps={{ className: 'min-w-[100px]' }}
+            /> */}
+            <input
+              type="text"
+              className="px-4 outline-none h-[50px] w-[30rem] rounded-full text-lg focus:!border-t-blue-500 focus:!border-blue-500 ring-4 ring-transparent focus:ring-blue-500/20 !border-2 !border-blue-gray-50 bg-white shadow-lg shadow-blue-gray-900/5 placeholder:text-blue-gray-200 text-blue-gray-500"
+              placeholder="Search books"
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
-        <div className="my-10 grid grid-cols-4 gap-4">
+        <div className="my-10 grid grid-cols-4 gap-2">
           {books?.map(book => (
             <BookCard book={book} key={book._id} />
           ))}
