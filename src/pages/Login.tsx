@@ -11,8 +11,8 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('musa@gmail.com');
-  const [password, setPassword] = useState('123456');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const [loginUser, { data, error, isSuccess, isError, isLoading }] = useLoginUserMutation();
 

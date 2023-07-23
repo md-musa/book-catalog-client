@@ -13,10 +13,10 @@ import { setCredentials } from '../store/features/auth/authSlice';
 export default function Registration() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState('md');
-  const [lastName, setLastName] = useState('musa');
-  const [email, setEmail] = useState('musa@gmail.com');
-  const [password, setPassword] = useState('123456');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const userData = {
     name: {
