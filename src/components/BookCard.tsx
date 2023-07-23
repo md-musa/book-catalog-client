@@ -21,25 +21,6 @@ export default function BookCard(props: any) {
   const auth = useSelector(state => state.auth);
   const { _id, title, image } = props.book;
 
-  const [addToWishList, { isSuccess, isError, error, data: wishlistBook }] =
-    useAddToWishlistMutation();
-
-  useEffect(() => {
-    if (isSuccess) {
-      const message = wishlistBook?.message;
-      if (message) toast.success(message);
-    }
-    if (isError) {
-      const { message } = error?.data;
-      toast.error(message);
-    }
-  }, [isError, isSuccess]);
-
-  function handleAddToWishList(id: string) {
-    if (auth.accessToken) addToWishList(id);
-    else navigate('/login');
-  }
-
   const [
     readSoon,
     {
@@ -67,49 +48,40 @@ export default function BookCard(props: any) {
   }, [isReadingListBookError, isReadingListBookSuccess]);
 
   return (
-    <>
-      <Card className="w-full max-w-[26rem] shadow-md border-2 border-[#f0f0f0]">
-        <CardHeader floated={false} color="blue-gray">
-          <img className="h-44 text-center mx-auto" src={image} alt="" />
-          <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
-
-          <IconButton
-            onClick={() => handleAddToWishList(_id)}
-            size="sm"
-            color="red"
-            variant="text"
-            className="!absolute top-4 right-4 rounded-full"
-          >
-            <HeartIcon className="h-6 w-6" />
-          </IconButton>
-        </CardHeader>
-        <CardBody
+    <Card className="w-full max-w-[26rem] shadow-md border-2 border-[#f0f0f0]">
+      <CardHeader floated={false} color="blue-gray">
+        <img className="h-44 text-center mx-auto cursor-pointer" src={image} alt="" />
+        <div
           onClick={() => navigate(`/all-books/${_id}`)}
-          className="hover:underline cursor-pointer"
-        >
-          <Typography variant="h6" color="blue-gray" className="font-medium text-center">
-            {title.length < 40 ? title : `${title.slice(0, 40)}...`}
-          </Typography>
+          className="cursor-pointer to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 "
+        />
+      </CardHeader>
+      <CardBody
+        onClick={() => navigate(`/all-books/${_id}`)}
+        className="hover:underline cursor-pointer"
+      >
+        <Typography variant="h6" color="blue-gray" className="font-medium text-center">
+          {title.length < 40 ? title : `${title.slice(0, 40)}...`}
+        </Typography>
 
-          <Typography
-            color="blue-gray"
-            className="flex justify-center items-center gap-1.5 font-normal"
-          >
-            <Rating value={5} readonly />
-            5.0
-          </Typography>
-        </CardBody>
-
-        <Button
-          className="mx-4 my-2 border"
-          variant="text"
-          onClick={() => handleReadSoon(_id)}
-          size="sm"
-          fullWidth={false}
+        <Typography
+          color="blue-gray"
+          className="flex justify-center items-center gap-1.5 font-normal"
         >
-          Read Soon
-        </Button>
-      </Card>
-    </>
+          <Rating value={5} readonly />
+          5.0
+        </Typography>
+      </CardBody>
+
+      <Button
+        className="mx-8 my-2 border"
+        variant="text"
+        onClick={() => handleReadSoon(_id)}
+        size="sm"
+        fullWidth={false}
+      >
+        Read Soon
+      </Button>
+    </Card>
   );
 }

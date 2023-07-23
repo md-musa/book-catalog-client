@@ -7,11 +7,14 @@ function Wishlist() {
   if (!wishlists) return <p>Loading...</p>;
 
   return (
-    <div className="grid grid-cols-3 gap-4">
-      {wishlists?.data.map(w => (
-        <WishlistCard book={w} />
-      ))}
-    </div>
+    <>
+      <h4 className="text-xl my-2 mx-4 mt-10 mb-5">Your wishlist:</h4>
+      <div className="grid grid-cols-5 gap-4">
+        {wishlists?.data.map(w => (
+          <WishlistCard book={w} />
+        ))}
+      </div>
+    </>
   );
 }
 

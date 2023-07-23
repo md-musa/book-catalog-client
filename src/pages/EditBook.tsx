@@ -1,4 +1,4 @@
-import { Card, Input, Button, Typography, Textarea } from '@material-tailwind/react';
+import { Card, Input, Button, Typography } from '@material-tailwind/react';
 import { useParams } from 'react-router-dom';
 import { useGetSingleBookQuery, useUpdateBookMutation } from '../store/features/books/bookApiSlice';
 import { useState, useEffect } from 'react';
@@ -13,9 +13,8 @@ export default function EditBook() {
   const [title, setTitle] = useState(bookData?.data.title || '');
   const [author, setAuthor] = useState(bookData?.data.author || '');
   const [genre, setGenre] = useState(bookData?.data.genre || '');
-  // const [language, setLanguage] = useState(bookData?.data.language);
   const [publicationDate, setPublicationDate] = useState(bookData?.data.publicationDate || '');
-  const [details, setDetails] = useState(bookData?.data.details || '');
+  const [] = useState(bookData?.data.details || '');
 
   const handleEditBook = (): void => {
     const data = {
@@ -35,6 +34,10 @@ export default function EditBook() {
     }
     if (isSuccess) {
       toast.success(data?.message);
+      setTitle('');
+      setAuthor('');
+      setGenre('');
+      setPublicationDate('');
     }
   }, [isSuccess, isError]);
 
@@ -80,13 +83,6 @@ export default function EditBook() {
               value={publicationDate}
               onChange={e => setPublicationDate(e.target.value)}
             />
-
-            {/* <Textarea
-              label="Details"
-              required
-              value={details}
-              onChange={e => setDetails(e.target.value)}
-            /> */}
           </div>
 
           <Button onClick={handleEditBook} className="mt-6" fullWidth>
